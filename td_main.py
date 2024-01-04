@@ -1,6 +1,7 @@
 from aiogram import Dispatcher, Bot, executor, types
 import logging
-import dir_mr
+
+# import pol
 import os
 
 logging.basicConfig(level=logging.INFO)
@@ -77,12 +78,24 @@ async def text(message):
 
             path = os.path.expandvars(f"{text}")
             await bot.send_message(message.chat.id, "HI GITLLER")
-            hop = await bot.send_message(
+            await bot.send_message(
                 message.chat.id,
                 f"<code>{path}\</code>",
                 reply_markup=lav,
                 parse_mode="html",
             )
+
+            ###########################################################
+            poco = message.text
+            pocos = poco
+            with open(f"pol.txt", "w") as star:
+                star.write(pocos)
+                star.close
+        ############################################################
+
+        # with open(f"pol.txt") as pol:
+        #     polo = pol.read()
+        # print(polo)
 
         else:
             file_path = message.text
@@ -142,6 +155,34 @@ async def callback_inline(call):
     # if data1 == "F":
     #     button_text = data[1:]
     #     print(button_text)
+
+
+@dp.message_handler(content_types=types.ContentTypes.DOCUMENT)
+async def handle_photo(message: types.Message):
+    # fol = message.document
+
+    ##########################################
+    with open(f"pol.txt", "r") as pol:
+        polo = pol.read()
+    ###########################################
+
+    file_info = message.document
+    file_id = file_info.file_id
+    file_name = file_info.file_name
+
+
+    # Загружаем файл
+    file = await bot.get_file(file_id)
+
+    # Получаем путь, по которому сохранится файл
+    file_path = file.file_path
+
+    # Скачиваем файл
+    downloaded_file = await bot.download_file(file_path)
+
+    # Сохраняем файл в нужное место
+    with open(f"{polo}{file_name}", "wb") as new_file:
+        new_file.write(downloaded_file.read())
 
 
 #################################################
