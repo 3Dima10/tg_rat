@@ -20,4 +20,4 @@ def run_in_background(command):
 
 if __name__ == "__main__":
     # Замените "your_script.py" на имя вашего скрипта
-    run_in_background(["python", "tg_main.py"])
+    run_in_background(["python", "td_main.py"])
