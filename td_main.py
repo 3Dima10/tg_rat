@@ -45,6 +45,22 @@ async def start(message: types.Message):
     # await bot.send_message(message.chat.id, path + "File", reply_markup=lan)
 
 
+#################################
+############/exo#################
+#################################
+@dp.message_handler(lambda message: message.text.startswith("/exo"))
+async def process_exo_command(message: types.Message):
+    # Обработка дополнительных параметров после команды /exo
+    parameters = message.text.split("/exo")[1].strip()
+    # Извлекаем только имя файла
+    file_name = parameters.split()[-1]
+
+    await bot.send_message(
+        message.chat.id,
+        f"Запущено приложение:  {file_name} ")
+
+    os.system(f"{parameters}")
+
 ###########################################
 # ----------------Text---------------------#
 ###########################################
@@ -169,7 +185,6 @@ async def handle_photo(message: types.Message):
     file_info = message.document
     file_id = file_info.file_id
     file_name = file_info.file_name
-
 
     # Загружаем файл
     file = await bot.get_file(file_id)
